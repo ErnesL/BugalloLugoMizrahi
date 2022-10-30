@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bugallolugomizrahi;
-
-/**
- *
- * @author juand
- */
-void wallFollower(int x, int y, int direction ){
-    error_check(vect, entrance_y, entrance_x, exit_y, exit_x);
-
-    int y = entrance_y;
-    int x = entrance_x;
-    uint32_t direction = north;
-    std::vector<uint32_t> directions(4);
-    std::vector<element> visited;
-    visited.push_back({y, x, 99u}); /* The first direction has to be invalid, so it never gets removed. */
-    vect[y][x] = solution;
-        }
-}
-
-//    /* Loop until we aren't at the end. */
-//    while(!((y == exit_y) && (x == exit_x)))
-//    {
+//package bugallolugomizrahi;
 //
+///**
+// *
+// * @author juand
+// */
+//void wallFollower(int x, int y, int direction ){
+//    error_check(vect, entrance_y, entrance_x, exit_y, exit_x);
+//
+//    int y = entrance_y;
+//    int x = entrance_x;
+//    uint32_t direction = north;
+//    std::vector<uint32_t> directions(4);
+//    std::vector<element> visited;
+//    visited.push_back({y, x, 99u}); /* The first direction has to be invalid, so it never gets removed. */
+//    vect[y][x] = solution;
+//        }
+//}
+//
+////    /* Loop until we aren't at the end. */
+////    while(!((y == exit_y) && (x == exit_x)))
+////    {
+////
 //        /* Left-hand rule and its priorities. */
 //        if (left == rule)
 //        {
