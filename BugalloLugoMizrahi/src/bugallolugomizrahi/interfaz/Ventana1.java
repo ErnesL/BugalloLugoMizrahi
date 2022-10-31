@@ -3,8 +3,8 @@ package bugallolugomizrahi.interfaz;
 public class Ventana1 extends javax.swing.JFrame {
 // Aqui va la informacion que se comparte entre ventanas, declaradas como variables globales public static
 
-    public static String m;
-    public static String n;
+    public static String x;
+    public static String y;
 
     public Ventana1() {
         initComponents();
@@ -53,6 +53,11 @@ public class Ventana1 extends javax.swing.JFrame {
 
         dimension1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         dimension1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dimension1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dimension1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(dimension1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, 20));
 
         jLabel2.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
@@ -88,10 +93,14 @@ public class Ventana1 extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-        this.m = dimension1.getText();
-        this.n = dimension2.getText();
+        this.x = dimension1.getText();
+        this.y = dimension2.getText();
         Ventana2 v2 = new Ventana2(this);
     }//GEN-LAST:event_siguienteActionPerformed
+
+    private void dimension1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dimension1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dimension1ActionPerformed
 
     /**
      * @param args the command line arguments
