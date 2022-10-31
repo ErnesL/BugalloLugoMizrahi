@@ -172,7 +172,7 @@ public class Lista <T>{
      * @param referencia
      * @return det ipo booleano, saber si un nodo se encuentra en la lista
      */
-    public boolean Buscar(T referencia){
+    public boolean buscar(T referencia){
     
         Nodo<T> node = new Nodo<>();
     
@@ -278,11 +278,21 @@ public class Lista <T>{
         this.pFirst = pFirst;
     }
     
+    public Object access(Nodo nodo){
+        Nodo aux = pFirst;
+        while(aux != null){
+            if(aux == nodo)return aux;
+            aux = aux.getpNext();
+        }
+        return null;
+        
+    }
+    
     /**
      *
      * @param nodo
      */
-    public void eliminarElemento(int x){
+    public Object eliminarElemento(Object x){
         Nodo nodo = new Nodo();
         
         nodo.setInfo(x);
@@ -293,24 +303,16 @@ public class Lista <T>{
         Nodo<T> aux = pFirst;
         
         if (!esVacio()){
-//            if(Buscar(nodo.getInfo())){
             while(aux.getpNext().getInfo() != nodo.getInfo()){
         
             aux = aux.getpNext();
-//            if (Buscar(nodo.getInfo())){
-//                Nodo aux = pFirst;
-//                while(aux.getpNext().getInfo() != nodo.getInfo()){
-//                    
-//                    aux = aux.getpNext();
-//                }
-//                aux.setpNext(nodo.getpNext());
-//                
+//           
                 
             }      aux.setpNext(aux.getpNext().getpNext());          
-            size = size - 1;
+            size--;
             
-//            }else{System.out.println("No existe el valor que desea eliminar");}
         }
+        return x;
     }
     
     /**
@@ -476,15 +478,16 @@ public class Lista <T>{
      * Elimina un Nodo buscandolo por la posicion ingresada por el usuario
      * @param position
      */
-    public void deleteNth(int position) {
+    public Object deleteNth(int position) {
         checkBounds(position, 0, size - 1);
+        Object temp = buscarPorIndice(position);
         if (position == 0) {
             Nodo destroy = pFirst;
             pFirst = pFirst.getpNext();
             destroy = null;
             /* clear to let GC do its work */
             size--;
-            return;
+            return temp;
         }
         Nodo cur = pFirst;
         for (int i = 0; i < position - 1; ++i) {
@@ -496,7 +499,7 @@ public class Lista <T>{
         destroy = null; // clear to let GC do its work
 
         size--;
-
+    return temp;
     }
     
     /**
