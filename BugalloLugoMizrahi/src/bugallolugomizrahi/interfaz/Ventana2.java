@@ -1,11 +1,16 @@
 package bugallolugomizrahi.interfaz;
 
+import bugallolugomizrahi.MazeGenerator;
+import static bugallolugomizrahi.MazeGenerator.HEIGHT;
+import static bugallolugomizrahi.MazeGenerator.WIDTH;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Ventana2 extends javax.swing.JFrame {
 // Aqui va la informacion que se comparte entre ventanas, declaradas como variables globales public static
 
     public static Ventana1 v1;
+//    public static MazeGenerator maze = new MazeGenerator();
 
     public Ventana2(Ventana1 v1) {
         initComponents();
@@ -89,13 +94,45 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void generarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarMapaActionPerformed
-        int num;
+        
+        
+        int x = 0;
+        int y = 0;
+        
         try {
-            num = Integer.parseInt(v1.m);
-            num = Integer.parseInt(v1.n);
+            x = Integer.parseInt(v1.x);
+            y = Integer.parseInt(v1.y);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, las dimensiones deben de ser numeros.");
         }
+        MazeGenerator.HEIGHT = y;
+        MazeGenerator.WIDTH = x;
+        MazeGenerator mazeGen = new MazeGenerator();
+		mazeGen.generate();
+                int[] test = new int[WIDTH*4];
+                test = mazeGen.getRowsandColumns();
+                System.out.println(mazeGen.generateEntryandEscape());
+//                for (int i = 0; i < test.length; i++) {
+//                    System.out.println(test[i]);
+//                
+//            }
+                boolean p = mazeGen.proof(3,8);
+                System.out.println("PRUEBA DE PROOF");
+                System.out.println(p);
+                System.out.println("----------");
+                mazeGen.generateEntryandEscape();
+                
+                int tar = mazeGen.maze.size();
+//                mazeGen.bfs(mazeGen.maze, 0, tar);
+		mazeGen.setSize(x, y);
+        JFrame frame = new JFrame("Laberinto");
+        frame.add(mazeGen);
+        frame.setSize(x * 11, y * 12);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_generarMapaActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
