@@ -3,13 +3,16 @@ package bugallolugomizrahi.interfaz;
 import bugallolugomizrahi.MazeGenerator;
 import static bugallolugomizrahi.MazeGenerator.HEIGHT;
 import static bugallolugomizrahi.MazeGenerator.WIDTH;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Ventana2 extends javax.swing.JFrame {
 // Aqui va la informacion que se comparte entre ventanas, declaradas como variables globales public static
 
     public static Ventana1 v1;
+    public static JFrame frame = new JFrame();
 //    public static MazeGenerator maze = new MazeGenerator();
 
     public Ventana2(Ventana1 v1) {
@@ -36,6 +39,7 @@ public class Ventana2 extends javax.swing.JFrame {
         anterior = new javax.swing.JButton();
         siguiente = new javax.swing.JButton();
         generarMapa = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -83,6 +87,19 @@ public class Ventana2 extends javax.swing.JFrame {
         });
         jPanel1.add(generarMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 200, 40));
 
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 180));
 
         pack();
@@ -94,45 +111,61 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void generarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarMapaActionPerformed
-        
-        
+
         int x = 0;
         int y = 0;
         
         try {
             x = Integer.parseInt(v1.x);
             y = Integer.parseInt(v1.y);
+            //TODO hacer que esto sea menor 5x5
             
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, las dimensiones deben de ser numeros.");
         }
         MazeGenerator.HEIGHT = y;
         MazeGenerator.WIDTH = x;
         MazeGenerator mazeGen = new MazeGenerator();
-		mazeGen.generate();
-                int[] test = new int[WIDTH*4];
-                test = mazeGen.getRowsandColumns();
-                System.out.println(mazeGen.generateEntryandEscape());
+        if (x < 15 || y < 15) {
+            MazeGenerator.TILE_HEIGHT = 25;
+            MazeGenerator.TILE_WIDTH = 25;
+            frame.setSize(x * 30, y * 30);
+        } else if (x < 30 || y < 30) {
+            MazeGenerator.TILE_HEIGHT = 20;
+            MazeGenerator.TILE_WIDTH = 20;
+            frame.setSize(x * 22, y * 23);
+        } else if (x < 50 || y < 50) {
+            MazeGenerator.TILE_HEIGHT = 15;
+            MazeGenerator.TILE_WIDTH = 15;
+            frame.setSize(x * 16, y * 17);
+        } else {
+            //Tiene toques tecnicos para >50
+            MazeGenerator.TILE_HEIGHT = 5;
+            MazeGenerator.TILE_WIDTH = 5;
+            frame.setSize(x * 10, y * 10);
+        }
+
+        mazeGen.generate();
+        int[] test = new int[WIDTH * 4];
+//        test = mazeGen.getRowsandColumns();
 //                for (int i = 0; i < test.length; i++) {
 //                    System.out.println(test[i]);
 //                
 //            }
-                boolean p = mazeGen.proof(3,8);
-                System.out.println("PRUEBA DE PROOF");
-                System.out.println(p);
-                System.out.println("----------");
-                mazeGen.generateEntryandEscape();
-                
-                int tar = mazeGen.maze.size();
-//                mazeGen.bfs(mazeGen.maze, 0, tar);
-		mazeGen.setSize(x, y);
-        JFrame frame = new JFrame("Laberinto");
+//        boolean p = mazeGen.proof(3, 8);
+
+//        mazeGen.generateEntryandEscape();
+        mazeGen.setSize(x, y);
+//        JFrame frame = new JFrame();
+
         frame.add(mazeGen);
-        frame.setSize(x * 11, y * 12);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
     }//GEN-LAST:event_generarMapaActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
@@ -145,6 +178,14 @@ public class Ventana2 extends javax.swing.JFrame {
         Ventana3 v3 = new Ventana3(this);
 
     }//GEN-LAST:event_siguienteActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        System.out.println(frame.getSize());
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println(frame.getSize());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +228,7 @@ public class Ventana2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
     private javax.swing.JButton generarMapa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton salir;
