@@ -1,5 +1,6 @@
 package bugallolugomizrahi.interfaz;
 
+import bugallolugomizrahi.MazeGenerator;
 import javax.swing.JOptionPane;
 
 public class Ventana3 extends javax.swing.JFrame {
@@ -69,6 +70,11 @@ public class Ventana3 extends javax.swing.JFrame {
 
         bfs.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
         bfs.setText("BFS");
+        bfs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bfsActionPerformed(evt);
+            }
+        });
         jPanel1.add(bfs, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
 
         anterior1.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
@@ -94,6 +100,13 @@ public class Ventana3 extends javax.swing.JFrame {
         this.dispose();
         v2.setVisible(true);
     }//GEN-LAST:event_anterior1ActionPerformed
+
+    private void bfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsActionPerformed
+        // TODO add your handling code here:
+        MazeGenerator mazeGen = new MazeGenerator();
+              
+        mazeGen.proof(mazeGen.generateEntryandEscape1()[0], mazeGen.generateEntryandEscape1()[1]);
+    }//GEN-LAST:event_bfsActionPerformed
 
     /**
      * @param args the command line arguments
