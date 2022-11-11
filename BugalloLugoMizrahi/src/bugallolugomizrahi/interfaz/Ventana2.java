@@ -2,8 +2,11 @@ package bugallolugomizrahi.interfaz;
 
 import bugallolugomizrahi.MazeGenerator;
 import static bugallolugomizrahi.MazeGenerator.HEIGHT;
+import static bugallolugomizrahi.MazeGenerator.TILE_WIDTH;
 import static bugallolugomizrahi.MazeGenerator.WIDTH;
+import bugallolugomizrahi.Randomizer;
 import java.awt.Dimension;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -127,10 +130,16 @@ public class Ventana2 extends javax.swing.JFrame {
         MazeGenerator.HEIGHT = y;
         MazeGenerator.WIDTH = x;
         MazeGenerator mazeGen = new MazeGenerator();
+        Random random = new Random();
+        
         if (x < 15 || y < 15) {
             MazeGenerator.TILE_HEIGHT = 25;
             MazeGenerator.TILE_WIDTH = 25;
             frame.setSize(x * 30, y * 30);
+            
+            
+            
+            
         } else if (x < 30 || y < 30) {
             MazeGenerator.TILE_HEIGHT = 20;
             MazeGenerator.TILE_WIDTH = 20;
@@ -147,6 +156,7 @@ public class Ventana2 extends javax.swing.JFrame {
         }
 
         mazeGen.generate();
+//        System.out.println(mazeGen.entryEscape(4));
         int[] test = new int[WIDTH * 4];
 //        test = mazeGen.getRowsandColumns();
 //                for (int i = 0; i < test.length; i++) {
@@ -160,7 +170,7 @@ public class Ventana2 extends javax.swing.JFrame {
 //        JFrame frame = new JFrame();
 
         frame.add(mazeGen);
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 //        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -8,9 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -102,8 +100,56 @@ public class MazeGenerator extends Canvas {
                 }
             }
         }
-        g.fillRect(xCoordEntry, yCoordEntry, 5, 5);
-        g.fillRect(xCoordExit, yCoordExit, 5, 5);
+//        Graphics g1 = null;
+//        g1.setColor(Color.green);
+//        Graphics g2 = null; 
+//        g2.setColor(Color.red);
+//        g.drawLine(0, 0, 0, HEIGHT * TILE_HEIGHT);
+//        g.drawLine(0, 0, WIDTH * TILE_WIDTH, 0);
+//        g.drawLine(WIDTH * TILE_WIDTH, 0, WIDTH * TILE_WIDTH, HEIGHT * TILE_HEIGHT);
+//        g.drawLine(0, HEIGHT * TILE_HEIGHT, WIDTH * TILE_WIDTH, HEIGHT * TILE_HEIGHT);
+        int randInt = Randomizer.generate(1, 4);
+        int randInt2 = Randomizer.generate(1,4);
+        while(randInt == randInt2){
+            randInt2 = Randomizer.generate(1, 4);
+        }
+        
+        
+        int entry = entryEscape(randInt);
+        g.setColor(Color.green);
+//        System.out.println(entry);
+       switch(randInt){
+           case(1):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH*(WIDTH - entry), 0, TILE_WIDTH ,TILE_HEIGHT);//BORDE SUPERIOR 1
+            break;
+           case(3):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH*(WIDTH - entry), (HEIGHT*TILE_HEIGHT) - TILE_HEIGHT, TILE_WIDTH ,TILE_HEIGHT);//BORDE INFERIOR 3
+            break;
+           case(4):
+            g.fillRect(0, (HEIGHT*TILE_HEIGHT) - TILE_HEIGHT*(HEIGHT- entry), TILE_WIDTH ,TILE_HEIGHT);//BORDE IZQUIERDO 4
+            break;
+           case(2):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH, (HEIGHT*TILE_HEIGHT) - (TILE_HEIGHT*(HEIGHT- entry)), TILE_WIDTH ,TILE_HEIGHT);//BORDE DERECHO 2
+            break;
+       }
+       int exit = entryEscape(randInt2);
+        g.setColor(Color.red);
+          switch(randInt2){
+           case(1):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH*(WIDTH - exit), 0, TILE_WIDTH ,TILE_HEIGHT);//BORDE SUPERIOR 1
+            break;
+           case(3):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH*(WIDTH - exit), (HEIGHT*TILE_HEIGHT) - TILE_HEIGHT, TILE_WIDTH ,TILE_HEIGHT);//BORDE INFERIOR 3
+            break;
+           case(4):
+            g.fillRect(0, (HEIGHT*TILE_HEIGHT) - TILE_HEIGHT*(HEIGHT- exit), TILE_WIDTH ,TILE_HEIGHT);//BORDE IZQUIERDO 4
+            break;
+           case(2):
+            g.fillRect((WIDTH*TILE_WIDTH) - TILE_WIDTH, (HEIGHT*TILE_HEIGHT) - (TILE_HEIGHT*(HEIGHT- exit)), TILE_WIDTH ,TILE_HEIGHT);//BORDE DERECHO 2
+            break;
+       }
+        
+        
     }
 
     public void generate() {
@@ -178,6 +224,9 @@ public class MazeGenerator extends Canvas {
 //                list.imprimirValores();
     }
 
+    public void getExit(){
+        
+    }
     public int[] generateEntryandEscape1() {
         int[] mat = getRowsandColumns();
         Random newRandom = new Random();
@@ -362,6 +411,30 @@ public class MazeGenerator extends Canvas {
 //    }
 //    return true;
 //}
+    public int entryEscape(int randInt){
+        Random random = new Random();
+        int entry = 0;
+        
+        switch(randInt){
+            case 1:
+                //BORDE SUPERIOR
+                entry = random.nextInt(WIDTH - 1);
+                break;
+            case 2:    
+                //BORDE DERECHO
+                 entry = random.nextInt(HEIGHT - 1);
+                 break;
+            case 3:    
+                //BORDE INFERIOR
+                entry = random.nextInt(WIDTH - 1);
+                break;
+            case 4:    
+                //BORDE IZQUIERDO
+                entry = random.nextInt(HEIGHT - 1);
+                break;
+      }
+        return entry;
+    }
     public int[] getRowsandColumns() {
         int[][] matrix = new int[HEIGHT][WIDTH];
         int counter = 0;
@@ -442,45 +515,45 @@ public class MazeGenerator extends Canvas {
         return array;
     }
 
-    public void loadImageIn(List<Integer> visited, String file) {
-        try {
-            BufferedImage image = ImageIO.read(new File("res/" + file));
-            for (int y = 0; y < image.getHeight(); y++) {
-                for (int x = 0; x < image.getWidth(); x++) {
-                    int rgb = image.getRGB(x, y);
-                    if (rgb != -1) {
-                        visited.add((y * WIDTH) + x);
-                        colors.put(new Vector2I(x, y), new Color(rgb));
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void loadImageIn(List<Integer> visited, String file) {
+//        try {
+//            BufferedImage image = ImageIO.read(new File("res/" + file));
+//            for (int y = 0; y < image.getHeight(); y++) {
+//                for (int x = 0; x < image.getWidth(); x++) {
+//                    int rgb = image.getRGB(x, y);
+//                    if (rgb != -1) {
+//                        visited.add((y * WIDTH) + x);
+//                        colors.put(new Vector2I(x, y), new Color(rgb));
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public void step() {
-        step++;
-        if (step >= maze.size()) {
-            step = maze.size() - 1;
-        }
-    }
+//    public void step() {
+//        step++;
+//        if (step >= maze.size()) {
+//            step = maze.size() - 1;
+//        }
+//    }
 
-    public int[] bfs(List<Vector2I> maze, int src, int tar) {
-        Queue<Integer> q = new Queue<>();
-//    maze = this.maze;
-        int[] ans = new int[7];
-        Lista<Integer> list = new Lista<>();
-        for (int i = 0; i < maze.size(); i++) {
-            if (i == 0) {
-                list.agregarElemento(maze.get(i).start);
-                list.agregarElemento(maze.get(i).end);
-            } else {
-                list.agregarElemento(maze.get(i).end);
-            }
-        }
-        int gSize = maze.size();
-        boolean[] visited = new boolean[gSize];
+//    public int[] bfs(Lista<Vector2I> maze, int src, int tar) {
+//        Queue<Integer> q = new Queue<>();
+////    maze = this.maze;
+//        int[] ans = new int[7];
+//        Lista<Integer> list = new Lista<>();
+//        for (int i = 0; i < maze.size(); i++) {
+//            if (i == 0) {
+//                list.agregarElemento(maze.get(i).start);
+//                list.agregarElemento(maze.get(i).end);
+//            } else {
+//                list.agregarElemento(maze.get(i).end);
+//            }
+//        }
+//        int gSize = maze.size();
+//        boolean[] visited = new boolean[gSize];
 //    visited[src] = true;
 //    int[] ans = new int[g.getEdges()[0].length];
 //    
@@ -499,12 +572,13 @@ public class MazeGenerator extends Canvas {
 //            }
 //            
 //        }
-        return ans;
-    }
+//        return ans;
+//    }
 
     public static void main(String[] args) {
         MazeGenerator mazeGen = new MazeGenerator();
         mazeGen.generate();
+        System.out.println(mazeGen.entryEscape(3));
         int[] test = new int[WIDTH * 4];
         test = mazeGen.getRowsandColumns();
 //                System.out.println(mazeGen.generateEntryandEscape());
@@ -521,13 +595,15 @@ public class MazeGenerator extends Canvas {
         JFrame frame = new JFrame("Laberinto");
         frame.add(mazeGen);
         frame.setSize(WIDTH * 11, HEIGHT * 12);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
 }
+
+
+
 
 /**
  * @param args the command line arguments
