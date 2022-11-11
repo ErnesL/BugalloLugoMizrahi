@@ -29,6 +29,8 @@ public class Ventana1 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
         siguiente = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -41,11 +43,11 @@ public class Ventana1 extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ingrese las dimensiones del mapa");
+        jLabel1.setText("¡Te invitamos a experimentar!");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 50, 290, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 290, -1));
 
         dimension2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         dimension2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -62,7 +64,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         jLabel2.setText("¡Bienvenidos al Labyrinth Maker!");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 260, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 260, 30));
 
         salir.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
         salir.setText("Salir");
@@ -81,6 +83,18 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Ingresa las dimensiones del laberinto deseado");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 30, 290, -1));
+
+        jLabel5.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("cada laberinto es completamente distinto");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 50, 290, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 180));
 
@@ -144,6 +158,8 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton salir;
     private javax.swing.JButton siguiente;

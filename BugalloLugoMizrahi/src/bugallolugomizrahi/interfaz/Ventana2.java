@@ -40,9 +40,11 @@ public class Ventana2 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         salir = new javax.swing.JButton();
         anterior = new javax.swing.JButton();
-        siguiente = new javax.swing.JButton();
         generarMapa = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        verde = new javax.swing.JLabel();
+        rojo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -55,13 +57,14 @@ public class Ventana2 extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        salir.setText("X");
+        salir.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);
             }
         });
-        jPanel1.add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
+        jPanel1.add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 70, -1));
 
         anterior.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
         anterior.setText("Anterior");
@@ -72,15 +75,6 @@ public class Ventana2 extends javax.swing.JFrame {
         });
         jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 70, -1));
 
-        siguiente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
-        siguiente.setText("Siguiente");
-        siguiente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                siguienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
-
         generarMapa.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         generarMapa.setText("Bosquejo del mapa");
         generarMapa.addActionListener(new java.awt.event.ActionListener() {
@@ -88,20 +82,21 @@ public class Ventana2 extends javax.swing.JFrame {
                 generarMapaActionPerformed(evt);
             }
         });
-        jPanel1.add(generarMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 200, 40));
+        jPanel1.add(generarMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 200, 40));
 
-        jButton1.setText("jButton1");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        verde.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bugallolugomizrahi/imagenes/verde.png"))); // NOI18N
+        jPanel1.add(verde, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        rojo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bugallolugomizrahi/imagenes/rojo.png"))); // NOI18N
+        jPanel1.add(rojo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        jLabel1.setText("El cuadrado rojo indica la salida");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        jLabel2.setText("El cuadrado verde indica la entrada");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 180));
 
@@ -109,7 +104,6 @@ public class Ventana2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        //Si necesitas guardar informacion lo haces aqui antes de que se ejecute la salida
         System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
 
@@ -117,63 +111,61 @@ public class Ventana2 extends javax.swing.JFrame {
 
         int x = 0;
         int y = 0;
-        
+
         try {
             x = Integer.parseInt(v1.x);
             y = Integer.parseInt(v1.y);
-            //TODO hacer que esto sea menor 5x5
-            
+            if (x <= 2 || x > 150 || y <= 2 || y > 150) {
+                throw new Exception("Error, las dimensiones no pueden ser menores a dos");
+            }
+
+            MazeGenerator.HEIGHT = y;
+            MazeGenerator.WIDTH = x;
+            MazeGenerator mazeGen = new MazeGenerator();
+            if (x > y) {
+                if (x < 15) {
+                    MazeGenerator.TILE_HEIGHT = 25;
+                    MazeGenerator.TILE_WIDTH = 25;
+                } else if (x < 30) {
+                    MazeGenerator.TILE_HEIGHT = 20;
+                    MazeGenerator.TILE_WIDTH = 20;
+                } else if (x < 50) {
+                    MazeGenerator.TILE_HEIGHT = 15;
+                    MazeGenerator.TILE_WIDTH = 15;
+                } else {
+                    MazeGenerator.TILE_HEIGHT = 5;
+                    MazeGenerator.TILE_WIDTH = 5;
+                }
+            } else {
+                if (y < 15) {
+                    MazeGenerator.TILE_HEIGHT = 25;
+                    MazeGenerator.TILE_WIDTH = 25;
+                } else if (y < 30) {
+                    MazeGenerator.TILE_HEIGHT = 20;
+                    MazeGenerator.TILE_WIDTH = 20;
+                } else if (y < 50) {
+                    MazeGenerator.TILE_HEIGHT = 15;
+                    MazeGenerator.TILE_WIDTH = 15;
+                } else {
+                    MazeGenerator.TILE_HEIGHT = 5;
+                    MazeGenerator.TILE_WIDTH = 5;
+                }
+            }
+
+            frame.setSize(1280, 720);
+            mazeGen.generate();
+            mazeGen.setSize(x, y);
+            frame.add(mazeGen);
+            frame.setResizable(true);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error, las dimensiones deben de ser numeros.");
+            JOptionPane.showMessageDialog(null, "Error al momento de ingresar datos, por favor ingrese numeros menores entre 3 y 150");
+            this.dispose();
+            v1.setVisible(true);
         }
-        MazeGenerator.HEIGHT = y;
-        MazeGenerator.WIDTH = x;
-        MazeGenerator mazeGen = new MazeGenerator();
-        Random random = new Random();
-        
-        if (x < 15 || y < 15) {
-            MazeGenerator.TILE_HEIGHT = 25;
-            MazeGenerator.TILE_WIDTH = 25;
-            frame.setSize(x * 30, y * 30);
-            
-            
-            
-            
-        } else if (x < 30 || y < 30) {
-            MazeGenerator.TILE_HEIGHT = 20;
-            MazeGenerator.TILE_WIDTH = 20;
-            frame.setSize(x * 22, y * 23);
-        } else if (x < 50 || y < 50) {
-            MazeGenerator.TILE_HEIGHT = 15;
-            MazeGenerator.TILE_WIDTH = 15;
-            frame.setSize(x * 16, y * 17);
-        } else {
-            //Tiene toques tecnicos para >50
-            MazeGenerator.TILE_HEIGHT = 5;
-            MazeGenerator.TILE_WIDTH = 5;
-            frame.setSize(x * 10, y * 10);
-        }
-
-        mazeGen.generate();
-//        System.out.println(mazeGen.entryEscape(4));
-        int[] test = new int[WIDTH * 4];
-//        test = mazeGen.getRowsandColumns();
-//                for (int i = 0; i < test.length; i++) {
-//                    System.out.println(test[i]);
-//                
-//            }
-//        boolean p = mazeGen.proof(3, 8);
-
-//        mazeGen.generateEntryandEscape();
-        mazeGen.setSize(x, y);
-//        JFrame frame = new JFrame();
-
-        frame.add(mazeGen);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
     }//GEN-LAST:event_generarMapaActionPerformed
@@ -182,20 +174,6 @@ public class Ventana2 extends javax.swing.JFrame {
         this.dispose();
         v1.setVisible(true);
     }//GEN-LAST:event_anteriorActionPerformed
-
-    private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-        this.dispose();
-        Ventana3 v3 = new Ventana3(this);
-
-    }//GEN-LAST:event_siguienteActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        System.out.println(frame.getSize());
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(frame.getSize());
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,16 +189,21 @@ public class Ventana2 extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana2.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana2.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana2.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana2.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -238,10 +221,12 @@ public class Ventana2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
     private javax.swing.JButton generarMapa;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel rojo;
     private javax.swing.JButton salir;
-    private javax.swing.JButton siguiente;
+    private javax.swing.JLabel verde;
     // End of variables declaration//GEN-END:variables
 }
