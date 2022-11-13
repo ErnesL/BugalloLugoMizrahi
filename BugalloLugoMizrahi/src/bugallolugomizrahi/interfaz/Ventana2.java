@@ -115,7 +115,7 @@ public class Ventana2 extends javax.swing.JFrame {
         try {
             x = Integer.parseInt(v1.x);
             y = Integer.parseInt(v1.y);
-            if (x <= 2 || x > 150 || y <= 2 || y > 150) {
+            if (x < 4 || x >= 150 || y < 4 || y >= 150) {
                 throw new Exception("Error, las dimensiones no pueden ser menores a dos");
             }
 
@@ -152,17 +152,17 @@ public class Ventana2 extends javax.swing.JFrame {
                 }
             }
 
-            frame.setSize(1280, 720);
             mazeGen.generate();
             mazeGen.setSize(x, y);
+            frame.setSize(1280, 720);
             frame.add(mazeGen);
-            frame.setResizable(true);
+            frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
             frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al momento de ingresar datos, por favor ingrese numeros menores entre 3 y 150");
+            JOptionPane.showMessageDialog(null, "Error al momento de ingresar datos, por favor ingrese numeros entre 4 y 150");
             this.dispose();
             v1.setVisible(true);
         }

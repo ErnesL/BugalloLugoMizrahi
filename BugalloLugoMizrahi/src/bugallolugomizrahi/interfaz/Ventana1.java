@@ -51,10 +51,20 @@ public class Ventana1 extends javax.swing.JFrame {
 
         dimension2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         dimension2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dimension2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dimension2MouseClicked(evt);
+            }
+        });
         jPanel1.add(dimension2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 90, 20));
 
         dimension1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         dimension1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dimension1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dimension1MouseClicked(evt);
+            }
+        });
         dimension1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dimension1ActionPerformed(evt);
@@ -115,6 +125,14 @@ public class Ventana1 extends javax.swing.JFrame {
     private void dimension1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dimension1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dimension1ActionPerformed
+
+    private void dimension1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dimension1MouseClicked
+        dimension1.setText(null);
+    }//GEN-LAST:event_dimension1MouseClicked
+
+    private void dimension2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dimension2MouseClicked
+        dimension2.setText(null);
+    }//GEN-LAST:event_dimension2MouseClicked
 
     /**
      * @param args the command line arguments

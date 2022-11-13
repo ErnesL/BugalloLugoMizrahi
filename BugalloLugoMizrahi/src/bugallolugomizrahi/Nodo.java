@@ -15,17 +15,8 @@ public class Nodo<T> {
     
     private Nodo pNext;
     
-//    public Nodo(Object arista){
-//    
-//        this.info = arista;
-//        
-//        this.pNext = null;
-//    }
 
-    /**
-     *
-     * @return info de tipo T
-     */
+
     
     public T getInfo(){
     
